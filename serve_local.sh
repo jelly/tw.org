@@ -17,4 +17,10 @@ else
 fi
 echo "Serving on 127.0.0.1:$PORT"
 
-python -c "import BaseHTTPServer as bhs, SimpleHTTPServer as shs; bhs.HTTPServer(('127.0.0.1', $PORT), shs.SimpleHTTPRequestHandler).serve_forever()"
+PYTHON=$( python -V | grep 'Python 3')
+
+if [ $# -eq 1 ]; then
+    python2 -c "import BaseHTTPServer as bhs, SimpleHTTPServer as shs; bhs.HTTPServer(('127.0.0.1', $PORT), shs.SimpleHTTPRequestHandler).serve_forever()"
+else
+  python -m http.server $PORT --bind 127.0.0.1
+fi
